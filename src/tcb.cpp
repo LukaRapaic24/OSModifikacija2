@@ -18,8 +18,8 @@ TCB *TCB::createThread(Body body, void* arg)
 {
     TCB* newTCB = new TCB(body, arg);
 
-    if (!maxThreadsSem) maxThreadsSem = Gate::openSemaphore(5);
-    Gate::waitSemaphore(maxThreadsSem);
+    if (!TCB::maxThreadsSem) TCB::maxThreadsSem = Gate::openSemaphore(5);
+    Gate::waitSemaphore(TCB::maxThreadsSem);
     if (body != nullptr) { Scheduler::put(newTCB); }
 
     return newTCB;
